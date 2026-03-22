@@ -1,0 +1,27 @@
+@startuml 选课学习活动流程
+skinparam backgroundColor #FEFEFE
+skinparam activityBackgroundColor #87CEEB
+skinparam activityBorderColor #000080
+
+start
+:浏览课程;
+:查看课程信息;
+:选择课程;
+if (是否为付费课程?) then (是)
+  :支付学费;
+  if (支付成功?) then (是)
+    :支付完成;
+  else (否)
+    :支付失败，返回;
+    end
+  endif
+else (否)
+  :免费课程;
+endif
+:开始学习;
+:观看课程视频;
+:完成课程;
+:获得证书;
+stop
+
+@enduml

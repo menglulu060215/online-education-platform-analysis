@@ -1,0 +1,35 @@
+@startuml 在线教育平台系统用例图
+!define AWSPUML https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v14.0/dist
+skinparam backgroundColor #FEFEFE
+skinparam actorBackgroundColor #D3D3D3
+skinparam usecaseBackgroundColor #87CEEB
+skinparam usecaseBorderColor #000080
+
+actor 学生
+actor 教师
+actor 管理员
+
+rectangle 在线教育平台系统 {
+  usecase "网络选课" as UC1
+  usecase "在线支付" as UC2
+  usecase "视频学习" as UC3
+  usecase "在线考试" as UC4
+  usecase "电子证书" as UC5
+}
+
+学生 --> UC1
+学生 --> UC2
+学生 --> UC3
+学生 --> UC4
+学生 --> UC5
+
+教师 --> UC3
+教师 --> UC4
+
+管理员 --> UC1
+管理员 --> UC5
+
+UC1 ..> UC2 : include
+UC3 ..> UC2 : include
+
+@enduml

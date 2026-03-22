@@ -1,0 +1,29 @@
+@startuml 课程学习进度状态图
+skinparam backgroundColor #FEFEFE
+skinparam stateBackgroundColor #87CEEB
+skinparam stateBorderColor #000080
+
+[*] --> 未开始
+
+未开始 : entry/ 初始化课程学习记录
+未开始 : do/ 等待课程开始时间
+
+未开始 --> 学习中 : 开始观看课程\n[当前时间 >= 课程开始时间]
+
+学习中 : entry/ 记录学习开始时间
+学习中 : do/ 更新学习进度\n追踪观看时长
+
+学习中 --> 已完成 : 观看进度100%\n[学生已完成全部课程内容]
+
+学习中 --> 已过期 : 超出学习期限\n[当前时间 > 课程结束时间]
+
+已完成 : entry/ 记录完成时间\n生成完成证书
+已完成 : do/ 计算成绩
+
+已过期 : entry/ 锁定课程\n清除访问权限
+已过期 : do/ 发送过期提醒
+
+已完成 --> [*]
+已过期 --> [*]
+
+@enduml

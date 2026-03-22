@@ -1,0 +1,40 @@
+@startuml 网络选课序列图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceParticipantBorderColor #000080
+skinparam sequenceActorBackgroundColor #87CEEB
+
+actor 学生 as Student
+participant 课程目录 as Catalog
+participant 课程 as Course
+participant 选课记录 as Selection
+participant 支付系统 as Payment
+participant 通知服务 as Notification
+
+Student -> Catalog: 查询课程列表()\nout: 课程列表
+activate Catalog
+Catalog --> Student: return 课程信息数组
+deactivate Catalog
+
+Student -> Course: 选择课程(in: 课程ID)\nout: 课程详情
+activate Course
+Course --> Student: return 课程信息、价格
+deactivate Course
+
+alt 付费课程
+  Student -> Payment: 支付(in: 学生ID、课程ID、金额)
+  activate Payment
+  Payment --> Student: return 支付结果
+  deactivate Payment
+else 免费课程
+  Student -> Selection: 创建选课记录(in: 学生ID、课程ID)\nout: 记录ID
+  activate Selection
+  Selection --> Student: return 选课记录ID
+  deactivate Selection
+end
+
+Student -> Notification: 发送选课确认邮件(in: 学生邮箱、课程名称)
+activate Notification
+Notification --> Student: return 邮件发送状态
+deactivate Notification
+
+@enduml
